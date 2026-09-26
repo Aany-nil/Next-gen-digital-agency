@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import { SlSocialFacebook } from 'react-icons/sl';
 
 const Footer = () => {
@@ -47,19 +47,33 @@ const Footer = () => {
 
         </div>
 
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-base text-gray-500 gap-4">
           <p>© 2026 Next Gen Studio. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a href="#privacy" className="hover:text-gray-400 transition-colors">
-              <FaWhatsapp />
+          <div className="flex items-center gap-4">
+
+            <a 
+            href="#" 
+            className="w-11 h-11 flex items-center justify-center rounded-full bg-slate-700 text-gray-200 hover:bg-green-500 hover:text-white transition duration-300">
+            <FaWhatsapp className="text-base" />
             </a>
-            <a href="#terms" className="hover:text-gray-400 transition-colors">
-              <SlSocialFacebook />
+
+            <a 
+            href="#" 
+            className="w-11 h-11 flex items-center justify-center rounded-full bg-slate-700 text-gray-200 hover:bg-green-500 hover:text-white transition duration-300">
+           <SlSocialFacebook className="text-base" />
 
             </a>
-          </div>
+            <a
+              href="#"
+              className="w-11 h-11 flex items-center justify-center rounded-full bg-slate-700 text-gray-200 hover:bg-green-500 hover:text-white transition duration-300">
+                <FaInstagram className="text-base" />
+            </a>
+            <a href="#"
+             className="w-11 h-11 flex items-center justify-center rounded-full bg-slate-700 text-gray-200 hover:bg-green-500 hover:text-white transition duration-300">
+               <FaLinkedin className="text-base" />
+            </a>
+            </div>
         </div>
-
       </div>
     </footer>
   );
