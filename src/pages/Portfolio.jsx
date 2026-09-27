@@ -44,14 +44,14 @@ const portfolioData = [
 const Portfolio = () => {
   return (
     <main>
-         <section className="bg-blue-100 py-16 sm:py-20">
+         <section className="bg-blue-50 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-blue-600 text-2xl font-semibold mb-3">
+          <p className="text-blue-600 text-2xl font-semibold font-primary mb-3">
             Our Portfolio
           </p>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
-            Our  <span className="text-blue-600">Recent Projects</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-primary text-gray-900">
+            Our  <span className="text-blue-600 font-primary">Recent Projects</span>
           </h1>
 
           <p className="max-w-2xl mx-auto mt-4 text-gray-600 leading-7">
@@ -96,8 +96,8 @@ const Portfolio = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
-            Our <span className="text-blue-600">Approach</span>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight font-primary">
+            Our <span className="text-blue-600 font-primary">Approach</span>
           </h2>
           <p className="text-gray-600 text-base md:text-lg leading-relaxed mt-4">
             We focus on creating digital experiences that are simple, modern and effective.
