@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
 import Testimonials from "./pages/Testimonials";
+import Contact from "./pages/Contact";
 
 
 
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/testimonial" element={<Testimonials />} />
+        <Route path="/contact" element={<Contact />} />
       </Route>
       </Routes>
    </BrowserRouter>
