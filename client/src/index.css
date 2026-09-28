@@ -1,0 +1,17 @@
+
+@import "tailwindcss";
+
+@theme {
+    --color-brand: #155DFC;
+    --color-primary: #666666;
+    --color-theme: #fff;
+    --font-primary: "Roboto", sans-serif;
+}
+@utility container {
+    margin: auto;
+    padding: 0 16px;
+}
+
+body {
+    @apply font-primary;
+}
