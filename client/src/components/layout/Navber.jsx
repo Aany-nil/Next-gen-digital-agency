@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 
 const Navber = () => {
   return (
-    <nav className="bg-white shadow-sm">
+    <nav>
       <div className="container max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
         <Link to="/">

@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState } from "react";
 import {
   FaEnvelope,
   FaPhoneAlt,
@@ -8,25 +9,75 @@ import {
 } from "react-icons/fa";
 
 const Contact = () => {
-  const handleSubmit = (e) => {
+  // Form data
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/contacts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-    console.log("Contact form submitted");
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Message sent successfully!");
+
+        // Clear form after successful submit
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        alert("Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
     <main className="bg-gray-200">
 
+      {/* Hero Section */}
       <section className="bg-blue-50 py-20">
-        <div className=" container max-w-7xl mx-auto px-6 text-center">
+        <div className="container max-w-7xl mx-auto px-6 text-center">
 
           <p className="text-blue-600 font-semibold uppercase tracking-wider mb-3">
             Contact Us
           </p>
 
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            Let's Work <span className="text-blue-600">Together Friendly</span> 
+            Let's Work{" "}
+            <span className="text-blue-600">
+              Together Friendly
+            </span>
           </h1>
 
           <p className="mt-5 max-w-2xl mx-auto text-gray-600 leading-7">
@@ -38,11 +89,13 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Contact Section */}
       <section className="py-20 bg-slate-300">
-        <div className=" container max-w-7xl mx-auto px-6">
+        <div className="container max-w-7xl mx-auto px-6">
 
           <div className="grid lg:grid-cols-3 gap-10">
 
+            {/* Contact Information */}
             <div className="lg:col-span-1">
 
               <h2 className="text-3xl font-bold text-gray-900">
@@ -53,7 +106,6 @@ const Contact = () => {
                 Whether you have a question, want to start a project,
                 or simply want to say hello, feel free to contact us.
               </p>
-
 
               <div className="flex items-start gap-4 mt-8">
 
@@ -129,6 +181,7 @@ const Contact = () => {
 
             </div>
 
+            {/* Contact Form */}
             <div className="lg:col-span-2">
 
               <div className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm">
@@ -141,7 +194,6 @@ const Contact = () => {
                   Fill out the form below and we'll get back to you soon.
                 </p>
 
-
                 <form
                   onSubmit={handleSubmit}
                   className="mt-8"
@@ -149,6 +201,7 @@ const Contact = () => {
 
                   <div className="grid sm:grid-cols-2 gap-5">
 
+                    {/* Name */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Your Name
@@ -157,12 +210,15 @@ const Contact = () => {
                       <input
                         type="text"
                         name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         placeholder="Enter your name"
                         className="w-full px-4 py-3 rounded-lg border border-gray-200 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                         required
                       />
                     </div>
 
+                    {/* Email */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Email Address
@@ -171,6 +227,8 @@ const Contact = () => {
                       <input
                         type="email"
                         name="email"
+                        value={formData.email}
+                        onChange={handleChange}
                         placeholder="Enter your email"
                         className="w-full px-4 py-3 rounded-lg border border-gray-200 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                         required
@@ -179,6 +237,7 @@ const Contact = () => {
 
                   </div>
 
+                  {/* Subject */}
                   <div className="mt-5">
 
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -188,6 +247,8 @@ const Contact = () => {
                     <input
                       type="text"
                       name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
                       placeholder="What is your project about?"
                       className="w-full px-4 py-3 rounded-lg border border-gray-200 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                       required
@@ -195,6 +256,7 @@ const Contact = () => {
 
                   </div>
 
+                  {/* Message */}
                   <div className="mt-5">
 
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -203,6 +265,8 @@ const Contact = () => {
 
                     <textarea
                       name="message"
+                      value={formData.message}
+                      onChange={handleChange}
                       rows="6"
                       placeholder="Tell us about your project..."
                       className="w-full px-4 py-3 rounded-lg border border-gray-200 outline-none resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
@@ -211,6 +275,7 @@ const Contact = () => {
 
                   </div>
 
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     className="mt-6 inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-7 py-3 rounded-lg transition duration-300"
@@ -230,6 +295,7 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* CTA Section */}
       <section className="bg-blue-600 py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
 
@@ -257,3 +323,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
