@@ -1,5 +1,5 @@
-
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaEnvelope,
   FaPhoneAlt,
@@ -7,9 +7,12 @@ import {
   FaClock,
   FaArrowRight,
 } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
-  // Form data
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,7 +20,6 @@ const Contact = () => {
     message: "",
   });
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -25,144 +27,107 @@ const Contact = () => {
     });
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/contacts",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("http://localhost:8000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
       if (data.success) {
-        alert("Message sent successfully!");
-
-        // Clear form after successful submit
         setFormData({
           name: "",
           email: "",
           subject: "",
           message: "",
         });
+
+        navigate("/success");
       } else {
-        alert("Failed to send message.");
+        toast.error("Failed to send message.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
   return (
     <main className="bg-gray-200">
+      <ToastContainer position="top-right" autoClose={3000} />
 
-      {/* Hero Section */}
       <section className="bg-blue-50 py-20">
         <div className="container max-w-7xl mx-auto px-6 text-center">
-
           <p className="text-blue-600 font-semibold uppercase tracking-wider mb-3">
             Contact Us
           </p>
 
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
             Let's Work{" "}
-            <span className="text-blue-600">
-              Together Friendly
-            </span>
+            <span className="text-blue-600">Together Friendly</span>
           </h1>
 
           <p className="mt-5 max-w-2xl mx-auto text-gray-600 leading-7">
-            Have a project in mind? We'd love to hear about it.
-            Get in touch with NextGen Digital and let's create
-            something amazing together.
+            Have a project in mind? We'd love to hear about it. Get in touch with
+            NextGen Digital and let's create something amazing together.
           </p>
-
         </div>
       </section>
 
-      {/* Contact Section */}
       <section className="py-20 bg-slate-300">
         <div className="container max-w-7xl mx-auto px-6">
-
           <div className="grid lg:grid-cols-3 gap-10">
-
-            {/* Contact Information */}
             <div className="lg:col-span-1">
-
-              <h2 className="text-3xl font-bold text-gray-900">
-                Get In Touch
-              </h2>
+              <h2 className="text-3xl font-bold text-gray-900">Get In Touch</h2>
 
               <p className="mt-4 text-gray-600 leading-7">
-                Whether you have a question, want to start a project,
-                or simply want to say hello, feel free to contact us.
+                Whether you have a question, want to start a project, or simply
+                want to say hello, feel free to contact us.
               </p>
 
               <div className="flex items-start gap-4 mt-8">
-
                 <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                   <FaEnvelope />
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900">
-                    Email
-                  </h3>
-
-                  <p className="text-gray-600 mt-1">
-                    nextgendigital@.com
-                  </p>
+                  <h3 className="font-semibold text-gray-900">Email</h3>
+                  <p className="text-gray-600 mt-1">nextgendigital@.com</p>
                 </div>
-
               </div>
 
               <div className="flex items-start gap-4 mt-6">
-
                 <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-green-50 text-green-600">
                   <FaPhoneAlt />
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900">
-                    Phone
-                  </h3>
-
-                  <p className="text-gray-600 mt-1">
-                    +880 100020011
-                  </p>
+                  <h3 className="font-semibold text-gray-900">Phone</h3>
+                  <p className="text-gray-600 mt-1">+880 100020011</p>
                 </div>
-
               </div>
 
               <div className="flex items-start gap-4 mt-6">
-
                 <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                   <FaMapMarkerAlt />
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900">
-                    Location
-                  </h3>
-
+                  <h3 className="font-semibold text-gray-900">Location</h3>
                   <p className="text-gray-600 mt-1">
                     Uttara, Dhaka, Bangladesh
                   </p>
                 </div>
-
               </div>
 
               <div className="flex items-start gap-4 mt-6">
-
                 <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-green-50 text-green-600">
                   <FaClock />
                 </div>
@@ -171,21 +136,15 @@ const Contact = () => {
                   <h3 className="font-semibold text-gray-900">
                     Working Hours
                   </h3>
-
                   <p className="text-gray-600 mt-1">
                     Sat - Thu: 9:00 AM - 6:00 PM
                   </p>
                 </div>
-
               </div>
-
             </div>
 
-            {/* Contact Form */}
             <div className="lg:col-span-2">
-
               <div className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm">
-
                 <h2 className="text-2xl font-bold text-gray-900">
                   Send Us a Message
                 </h2>
@@ -194,14 +153,8 @@ const Contact = () => {
                   Fill out the form below and we'll get back to you soon.
                 </p>
 
-                <form
-                  onSubmit={handleSubmit}
-                  className="mt-8"
-                >
-
+                <form onSubmit={handleSubmit} className="mt-8">
                   <div className="grid sm:grid-cols-2 gap-5">
-
-                    {/* Name */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Your Name
@@ -218,7 +171,6 @@ const Contact = () => {
                       />
                     </div>
 
-                    {/* Email */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Email Address
@@ -234,12 +186,9 @@ const Contact = () => {
                         required
                       />
                     </div>
-
                   </div>
 
-                  {/* Subject */}
                   <div className="mt-5">
-
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Subject
                     </label>
@@ -253,12 +202,9 @@ const Contact = () => {
                       className="w-full px-4 py-3 rounded-lg border border-gray-200 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                       required
                     />
-
                   </div>
 
-                  {/* Message */}
                   <div className="mt-5">
-
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Message
                     </label>
@@ -272,10 +218,8 @@ const Contact = () => {
                       className="w-full px-4 py-3 rounded-lg border border-gray-200 outline-none resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                       required
                     ></textarea>
-
                   </div>
 
-                  {/* Submit Button */}
                   <button
                     type="submit"
                     className="mt-6 inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-7 py-3 rounded-lg transition duration-300"
@@ -283,44 +227,31 @@ const Contact = () => {
                     Send Message
                     <FaArrowRight className="text-sm" />
                   </button>
-
                 </form>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
       </section>
-
-      {/* CTA Section */}
       <section className="bg-blue-600 py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
-
           <h2 className="text-3xl sm:text-4xl font-bold text-white">
             Ready to Start Your Project?
           </h2>
 
           <p className="mt-4 text-blue-100 max-w-2xl mx-auto">
-            Let's turn your ideas into a powerful digital experience.
-            Contact NextGen Digital today.
+            Let's turn your ideas into a powerful digital experience. Contact
+            NextGen Digital today.
           </p>
 
-          <button
-            className="mt-7 inline-flex items-center gap-2 bg-white text-blue-600 font-semibold px-7 py-3 rounded-lg hover:bg-gray-300 transition duration-300"
-          >
+          <button className="mt-7 inline-flex items-center gap-2 bg-white text-blue-600 font-semibold px-7 py-3 rounded-lg hover:bg-gray-300 transition duration-300">
             Request a Quote
             <FaArrowRight />
           </button>
-
         </div>
       </section>
-
     </main>
   );
 };
 
 export default Contact;
-
